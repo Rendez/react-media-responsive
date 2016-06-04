@@ -8,7 +8,7 @@ function getDisplayName(WrappedComponent) {
 }
 
 export default function responsive(options = {}) {
-  const { withRef = false } = options
+  const { withRef = false, only = [] } = options
 
   return function wrapWithResponsive(WrappedComponent) {
     const responsiveDisplayName = `Responsive(${getDisplayName(WrappedComponent)})`
@@ -24,8 +24,11 @@ export default function responsive(options = {}) {
           `Wrap the root component in a <ResponsiveProvider>.`
         )
 
-        const storeState = context.responsiveStore.getState()
-        this.state = { storeState }
+        invariant(Array.isArray(only),
+          'The option "only" needs to be an array containing strings with the values passed to the responsiveStore.'
+        )
+
+        this.state = context.responsiveStore.getState()
       }
 
       componentWillMount() {
@@ -41,14 +44,27 @@ export default function responsive(options = {}) {
         }
       }
 
+      shouldComponentUpdate(props, state) {
+        if (!only.length) {
+          return true
+        }
+
+        return only.some(value => {
+          invariant(typeof this.state[value] === 'boolean',
+            `Value string passed to option "only" does not match ` +
+            `any name passed to the responsiveStore via the Provider.`
+          )
+
+          return this.state[value] !== value
+        })
+      }
+
       handleChange() {
         if (!this.unsubscribe) {
           return
         }
 
-        const storeState = this.context.responsiveStore.getState()
-
-        this.setState({ storeState })
+        this.setState(this.context.responsiveStore.getState())
       }
 
       getWrappedInstance() {
@@ -63,7 +79,7 @@ export default function responsive(options = {}) {
       render() {
         const mergedProps = {
           ...this.props,
-          responsive: this.state.storeState
+          responsive: this.state
         }
 
         if (withRef) {

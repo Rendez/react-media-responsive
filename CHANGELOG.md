@@ -1,0 +1,2 @@
+- 0.0.2 Added option `only` to the responsive wrapper.
+- 0.0.1 Initial release.

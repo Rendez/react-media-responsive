@@ -133,6 +133,11 @@ with all possible shorthands and value types https://github.com/wearefractal/rea
 
 Any numbers given as a shorthand will be expanded to px (`1234` will become `'1234px'`)
 
+### Options
+
+- `withRef {Boolean}` exposes the wrapper component with refs so that you may access it.
+- `only {Array}` string values passed to this array will implement `shouldComponentUpdate` and trigger only a state change on the WrappedComponent when some value in it matches, ignoring any other updates in `values` passed to the ResponsiveProvider.
+
 ### Server rendering
 
 Server rendering can be done by passing static values through the `values` property in the provider:
