@@ -1,2 +1,3 @@
-- 0.0.2 Added option `only` to the responsive wrapper.
-- 0.0.1 Initial release.
+- 0.1.2 Added tests for ResponsiveProvider.
+- 0.1.1 Added option `only` to the responsive wrapper.
+- 0.1.0 Initial release.

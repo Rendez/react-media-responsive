@@ -1,6 +1,6 @@
 {
   "name": "react-media-responsive",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "description": "Provider and media query wrapper for your React components",
   "main": "./lib/index.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "babel-eslint": "^5.0.0-beta9",
     "babel-loader": "^6.2.0",
     "babel-plugin-check-es2015-constants": "^6.3.13",
+    "babel-plugin-syntax-jsx": "^6.3.13",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.3.13",
     "babel-plugin-transform-es2015-block-scoping": "^6.3.13",
     "babel-plugin-transform-es2015-classes": "^6.3.13",
@@ -54,12 +55,14 @@
     "babel-plugin-transform-es2015-spread": "^6.3.13",
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
     "babel-plugin-transform-react-display-name": "^6.4.0",
+    "babel-plugin-transform-react-jsx": "^6.4.0",
     "babel-register": "^6.3.13",
     "eslint": "^1.7.1",
     "eslint-config-rackt": "1.1.0",
     "eslint-plugin-react": "^3.6.3",
     "expect": "^1.8.0",
     "hyphenate-style-name": "^1.0.0",
+    "jsdom": "~5.4.3",
     "mocha": "^2.2.5",
     "react": "^0.14.0",
     "react-addons-test-utils": "^0.14.0",
@@ -70,7 +73,8 @@
     "enquire.js": "^2.1.1",
     "hoist-non-react-statics": "^1.0.3",
     "hyphenate-style-name": "^1.0.1",
-    "invariant": "^2.0.0"
+    "invariant": "^2.0.0",
+    "matchmedia": "^0.1.2"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0-0"
