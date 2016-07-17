@@ -19,7 +19,7 @@ export default function responsive(options = {}) {
         super(props, context)
 
         invariant(context.responsiveStore,
-          `Could not find "responsiveStore" in the context or ` +
+          `Could not find "responsiveStore" in the context ` +
           `of "${responsiveDisplayName}". ` +
           `Wrap the root component in a <ResponsiveProvider>.`
         )
@@ -63,14 +63,15 @@ export default function responsive(options = {}) {
         if (!this.unsubscribe) {
           return
         }
-
+        // TODO set state filtered by the `only` array.
+        // optimize here instead of shouldComponentUpdate?
         this.setState(this.context.responsiveStore.getState())
       }
 
       getWrappedInstance() {
         invariant(withRef,
           `To access the wrapped instance, you need to specify ` +
-          `{ withRef: true } as the fourth argument of the responsive() call.`
+          `{ withRef: true } as an option to the responsive() call.`
         )
 
         return this.refs.wrappedInstance

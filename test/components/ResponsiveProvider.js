@@ -1,6 +1,7 @@
 import expect from 'expect'
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
 import TestUtils from 'react-addons-test-utils'
+import storeShape from '../../src/utils/storeShape'
 import { ResponsiveProvider as Provider } from '../../src/index'
 
 describe('React', () => {
@@ -12,7 +13,7 @@ describe('React', () => {
     }
 
     Child.contextTypes = {
-      responsiveStore: PropTypes.object.isRequired
+      responsiveStore: storeShape.isRequired
     }
 
     it('should enforce a single child', () => {
