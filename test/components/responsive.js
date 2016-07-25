@@ -60,7 +60,12 @@ describe('React', () => {
 
     it('should pass state and props to the given component', () => {
       const media = {
-        fromTablet: {}
+        fromTablet: {
+          minWidth: 768
+        }
+      }
+      const values = {
+        width: 1024
       }
 
       @responsive()
@@ -71,7 +76,7 @@ describe('React', () => {
       }
 
       const container = TestUtils.renderIntoDocument(
-        <Provider media={media}>
+        <Provider media={media} values={values}>
           <Container pass="through" responsive={{ fromTablet: false, untilTablet: true }} />
         </Provider>
       )
@@ -83,7 +88,7 @@ describe('React', () => {
     })
 
     it('should subscribe class components to the store changes')
-    
+
     it('should subscribe pure function components to the store changes')
 
     it('should unsubscribe before unmounting')

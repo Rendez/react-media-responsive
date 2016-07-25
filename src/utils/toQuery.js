@@ -1,36 +1,43 @@
+/**
+ * Full credit to react-responsive for the mediaShape declaration:
+ * https://github.com/contra/react-responsive/blob/master/src/toQuery.js
+ */
 import hyphenate from 'hyphenate-style-name'
+import mq from './mediaQuery'
 
-const re = /[height|width]$/
-
-function isDimension(feature) {
-  return re.test(feature)
-}
 function negate(cond) {
-  return `not ${cond}`
+  return 'not ' + cond
 }
 
-export default function toQuery(obj) {
-  let mq = ''
-  const features = Object.keys(obj)
+function keyVal(k, v) {
+  // px shorthand
+  if (typeof v === 'number') {
+    v = `${v}px`
+  }
+  if (v === true) {
+    return k
+  }
+  if (v === false) {
+    return negate(k)
+  }
 
-  features.forEach(function (feature, index) {
-    let value = obj[feature]
-    feature = hyphenate(feature)
-    // Add px to dimension features
-    if (isDimension(feature) && typeof value === 'number') {
-      value = `${value}px`
-    }
-    if (value === true) {
-      mq += feature
-    } else if (value === false) {
-      mq += negate(feature)
-    } else {
-      mq += `(${feature}: ${value})`
-    }
-    if (index < features.length-1) {
-      mq += ' and '
+  const realKey = hyphenate(k)
+  return `(${realKey}: ${v})`
+}
+
+function join(conds) {
+  return conds.join(' and ')
+}
+
+export default function(obj) {
+  const rules = []
+
+  Object.keys(mq.all).forEach(function(k) {
+    var v = obj[k]
+    if (v != null) {
+      rules.push(keyVal(k, v))
     }
   })
 
-  return mq
+  return join(rules)
 }

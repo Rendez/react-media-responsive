@@ -1,3 +1,5 @@
+- 0.1.4 Replace enquire.js with matchmedia.js for staticMatch compatibility.
+- 0.1.3 Added initial tests for responsive HOC.
 - 0.1.2 Added tests for ResponsiveProvider.
 - 0.1.1 Added option `only` to the responsive wrapper.
 - 0.1.0 Initial release.

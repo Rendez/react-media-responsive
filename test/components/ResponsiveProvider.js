@@ -1,5 +1,5 @@
 import expect from 'expect'
-import React, { Component } from 'react'
+import React, { PropTypes, Component } from 'react'
 import TestUtils from 'react-addons-test-utils'
 import storeShape from '../../src/utils/storeShape'
 import { ResponsiveProvider as Provider } from '../../src/index'

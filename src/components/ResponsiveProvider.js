@@ -1,9 +1,10 @@
 import { Component, PropTypes, Children } from 'react'
-import mediaShape from '../utils/mediaShape'
+import matchMedia from 'matchmedia'
+import hyphenate from 'hyphenate-style-name'
+import mediaQuery from '../utils/mediaQuery'
 import storeShape from '../utils/storeShape'
 import toQuery from '../utils/toQuery'
 import canUseDOM from 'can-use-dom'
-import enquire from 'enquire.js'
 
 /**
  * Creates a Responsive store that holds the state tree.
@@ -12,20 +13,26 @@ import enquire from 'enquire.js'
  *
  * There should only be a single store in your app.
  *
- * @param {Object} queries An object that is used to subscribe to matching
+ * @param {Object} [queries] An object that is used to subscribe to matching
  * queries, and that will in turn modify the current state of responsiveness.
  *
- * @param {Object} [initialState] The initial state. You may optionally specify it
- * to hydrate the state from the server in universal apps, or to restore a
- * previously serialized user session.
+ * @param {Object} [values] The initial values. You may optionally specify it
+ * to hydrate the state from the server in universal apps.
  *
  * @returns {Store} A Responsive store that lets you read the state, set media
  * queries and subscribe to changes.
  */
-function createStore(queries, initialState = {}) {
+function createStore(queries, values) {
   const listeners = []
-  let currentState = initialState
+  let currentState = {}
   let timeoutID = 0
+
+  if (values) {
+    values = Object.keys(values).reduce(function(result, key) {
+      result[hyphenate(key)] = values[key]
+      return result
+    }, {});
+  }
 
   /**
    * Reads the state tree managed by the store.
@@ -66,19 +73,19 @@ function createStore(queries, initialState = {}) {
   }
 
   /**
-   * Registers a media query object using enquire.js. Everytime a match or
-   * unmatch is trigered, the current state changes to reflect it with a boolean
-   * value. Then every registered callback in listeners is executed.
+   * Registers a media query object using addListener(). Everytime a match
+   * is trigered, the current state changes to reflect it with a boolean
+   * value. Then every registered callback in `listeners` is executed.
    *
    * @param {Object} obj key-value pairs with media queries to match
    * @param {String} name of media match that will be flagged with a boolean
    * @returns {void}
    */
   function media(obj, name) {
-    enquire.register(toQuery(obj), {
-      match: handler(name, true),
-      unmatch: handler(name, false)
-    })
+    const mql = matchMedia(toQuery(obj), values)
+    const handlerFn = handler(name, mql);
+    mql.addListener(handlerFn)
+    handlerFn()
   }
 
   /**
@@ -90,10 +97,14 @@ function createStore(queries, initialState = {}) {
    * @param {Boolean} value representing the state of the matched media query
    * @returns {Function} returns a wrapper function triggering callbacks
    */
-  function handler(name, value) {
+  function handler(name, mql) {
     return function () {
+      if (mql.matches === currentState[name]) {
+        return
+      }
+
       const newState = {}
-      newState[name] = value
+      newState[name] = mql.matches
 
       currentState = { ...currentState, ...newState }
 
@@ -135,9 +146,15 @@ export default class ResponsiveProvider extends Component {
   }
 }
 
+function getPropTypeMatchers() {
+  const matchers = { ...mediaQuery.matchers }
+  delete matchers.type
+  return PropTypes.shape(matchers)
+}
+
 ResponsiveProvider.propTypes = {
-  media: mediaShape.isRequired,
-  values: PropTypes.objectOf(PropTypes.bool),
+  media: PropTypes.shape(mediaQuery.all).isRequired,
+  values: getPropTypeMatchers(),
   children: PropTypes.element.isRequired
 }
 
