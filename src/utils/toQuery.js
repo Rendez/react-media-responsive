@@ -29,11 +29,11 @@ function join(conds) {
   return conds.join(' and ')
 }
 
-export default function(obj) {
+export default function (obj) {
   const rules = []
 
-  Object.keys(mq.all).forEach(function(k) {
-    var v = obj[k]
+  Object.keys(mq.all).forEach(function (k) {
+    const v = obj[k]
     if (v != null) {
       rules.push(keyVal(k, v))
     }

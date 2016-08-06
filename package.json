@@ -37,6 +37,7 @@
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.0",
     "babel-plugin-check-es2015-constants": "^6.3.13",
     "babel-plugin-syntax-jsx": "^6.3.13",
@@ -69,7 +70,6 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "can-use-dom": "^0.1.0",
     "hoist-non-react-statics": "^1.2.0",
     "hyphenate-style-name": "^1.0.1",
     "invariant": "^2.0.0",

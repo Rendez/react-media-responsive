@@ -1,4 +1,4 @@
-import { Component, createElement } from 'react'
+import { Component, createElement } from 'react' // eslint-disable-line no-unused-vars
 import storeShape from '../utils/storeShape'
 import hoistStatics from 'hoist-non-react-statics'
 import invariant from 'invariant'
@@ -49,13 +49,13 @@ export default function responsive(options = {}) {
           return true
         }
 
-        return only.some(value => {
-          invariant(typeof this.state[value] === 'boolean',
+        return only.some(function (value) {
+          invariant(typeof state[value] === 'boolean',
             `Value string passed to option "only" does not match ` +
             `any name passed to the responsiveStore via the Provider.`
           )
 
-          return this.state[value] !== value
+          return state[value] !== value
         })
       }
 

@@ -4,7 +4,6 @@ import hyphenate from 'hyphenate-style-name'
 import mediaQuery from '../utils/mediaQuery'
 import storeShape from '../utils/storeShape'
 import toQuery from '../utils/toQuery'
-import canUseDOM from 'can-use-dom'
 
 /**
  * Creates a Responsive store that holds the state tree.
@@ -28,10 +27,10 @@ function createStore(queries, values) {
   let timeoutID = 0
 
   if (values) {
-    values = Object.keys(values).reduce(function(result, key) {
+    values = Object.keys(values).reduce(function (result, key) {
       result[hyphenate(key)] = values[key]
       return result
-    }, {});
+    }, {})
   }
 
   /**
@@ -83,7 +82,7 @@ function createStore(queries, values) {
    */
   function media(obj, name) {
     const mql = matchMedia(toQuery(obj), values)
-    const handlerFn = handler(name, mql);
+    const handlerFn = handler(name, mql)
     mql.addListener(handlerFn)
     handlerFn()
   }
@@ -94,7 +93,7 @@ function createStore(queries, values) {
    * as a result of several consecutive media query matches.
    *
    * @param {String} name of media match that will be flagged with a boolean
-   * @param {Boolean} value representing the state of the matched media query
+   * @param {Boolean} mql representing the state of the matched media query
    * @returns {Function} returns a wrapper function triggering callbacks
    */
   function handler(name, mql) {
@@ -117,11 +116,9 @@ function createStore(queries, values) {
     }
   }
 
-  if (canUseDOM) {
-    for (let name in queries) {
-      if (queries.hasOwnProperty(name)) {
-        media(queries[name], name)
-      }
+  for (let name in queries) {
+    if (queries.hasOwnProperty(name)) {
+      media(queries[name], name)
     }
   }
 

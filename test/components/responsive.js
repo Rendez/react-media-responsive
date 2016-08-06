@@ -1,5 +1,5 @@
 import expect from 'expect'
-import React, { createClass, Children, PropTypes, Component } from 'react'
+import React, { createClass, Children, PropTypes, Component } from 'react' // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom'
 import TestUtils from 'react-addons-test-utils'
 import storeShape from '../../src/utils/storeShape'
@@ -10,7 +10,7 @@ describe('React', () => {
     function createStore(state) {
       return {
         subscribe() {
-          return function(){}
+          return function () {}
         },
         getState() {
           return state

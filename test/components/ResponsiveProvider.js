@@ -1,5 +1,5 @@
 import expect from 'expect'
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react' // eslint-disable-line
 import TestUtils from 'react-addons-test-utils'
 import storeShape from '../../src/utils/storeShape'
 import { ResponsiveProvider as Provider } from '../../src/index'
@@ -59,7 +59,7 @@ describe('React', () => {
       expect(spy.calls.length).toBe(0)
 
       const child = TestUtils.findRenderedComponentWithType(tree, Child)
-      expect(child.context.responsiveStore).toIncludeKeys(['subscribe', 'getState'])
+      expect(child.context.responsiveStore).toIncludeKeys([ 'subscribe', 'getState' ])
     })
   })
 })

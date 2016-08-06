@@ -1,9 +1,9 @@
 # react-media-responsive
 
 
-## UNDER DEVELOPMENT
+## Usable, but still under development
 
-**Do not use in production just yet**, give me a little time to test with redux, write test cases and add some more coverage. In the meantime feel free to use this at your own risk. At this point, feedback is very welcomed, as well as contributions. For that, please use Github [issues](https://github.com/Rendez/react-media-responsive/Issues) and follow the [Code of Conduct](https://github.com/Rendez/react-media-responsive/CODE_OF_CONDUCT.md).
+There will be examples both vanilla React and also together with Redux, but I'd like to write more test cases and add some more coverage. In the meantime feel free to use this at your own risk. At this point, feedback is very welcomed, as well as contributions. For that, please use Github [issues](https://github.com/Rendez/react-media-responsive/Issues) and follow the [Code of Conduct](https://github.com/Rendez/react-media-responsive/CODE_OF_CONDUCT.md).
 
 ## Motivation
 
@@ -30,7 +30,9 @@ import { ResponsiveProvider } from './react-media-responsive'
 
 const media = {
   tablet: {
-    screen: true, minWidth: 768, maxWidth: 1024
+    screen: true,
+    minWidth: 768,
+    maxWidth: 1024
   },
   fromTablet: {
     minWidth: '768px'
@@ -144,7 +146,7 @@ Server rendering can be done by passing static values through the `values` prope
 
 ```jsx
 export default (
-  <ResponsiveProvider media={media} values={{tablet: true, retina: false}}>
+  <ResponsiveProvider media={media} values={{width: 1024, minResolution: '2dppx'}}>
     <SampleApp />
   </ResponsiveProvider>
 )
