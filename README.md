@@ -1,5 +1,8 @@
-# react-media-responsive
+# Project deprecated in favor of [react-responsive](https://github.com/contra/react-responsive)
 
+One of the main reasons I started this project was to have a more performance when responsive event changes happened - through fine-grained control of updates. I also wanted to avoid bloating the code with repetitive `<MediaQuery>` tags. Since then this has changed and [react-responsive](https://github.com/contra/react-responsive) is performant, plus it provides a way to render children via function, which offers the needed flexibility.
+
+# react-media-responsive
 
 ## Usable, but still under development
 
